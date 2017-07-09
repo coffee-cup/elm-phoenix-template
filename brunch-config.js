@@ -2,7 +2,7 @@ exports.config = {
   // See http://brunch.io/#documentation for docs.
   files: {
     javascripts: {
-      joinTo: "js/app.js"
+      joinTo: 'js/app.js'
 
       // To use a separate vendor.js bundle, specify two files path
       // http://brunch.io/docs/config#-files-
@@ -20,13 +20,13 @@ exports.config = {
       // }
     },
     stylesheets: {
-      joinTo: "css/app.css",
+      joinTo: 'css/app.css',
       order: {
-        after: ["web/static/css/app.css"] // concat app.css last
+        after: ['web/static/css/app.css'] // concat app.css last
       }
     },
     templates: {
-      joinTo: "js/app.js"
+      joinTo: 'js/app.js'
     }
   },
 
@@ -40,13 +40,10 @@ exports.config = {
   // Phoenix paths configuration
   paths: {
     // Dependencies and current project directories to watch
-    watched: [
-      "web/static",
-      "test/static"
-    ],
+    watched: ['web/static', 'test/static', 'web/elm/Main.elm'],
 
     // Where to compile files to
-    public: "priv/static"
+    public: 'priv/static'
   },
 
   // Configure your plugins
@@ -54,12 +51,18 @@ exports.config = {
     babel: {
       // Do not use ES6 compiler in vendor code
       ignore: [/web\/static\/vendor/]
+    },
+    elmBrunch: {
+      elmFolder: 'web/elm',
+      mainModules: ['Main.elm'],
+      outputFolder: '../static/vendor',
+      executablePath: '../../node_modules/.bin'
     }
   },
 
   modules: {
     autoRequire: {
-      "js/app.js": ["web/static/js/app"]
+      'js/app.js': ['web/static/js/app']
     }
   },
 
