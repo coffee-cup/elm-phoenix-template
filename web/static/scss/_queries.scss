@@ -1,0 +1,45 @@
+/*
+ * Mixin for mobile-first width based media queries.
+ *
+ * Use like
+ * @include break(medium) {
+ *  color: #333;
+ * }
+ *
+ */
+
+@mixin break($point) {
+    @if $point == xsmall {
+        @media screen and (max-width: 35.5em) {
+            @content;
+        }
+    } @else if $point == small {
+        @media screen and (max-width: 48em) {
+            @content;
+        }
+    } @else if $point == medium {
+        @media screen and (min-width: 48em) and (max-width: 64em) {
+            @content;
+        }
+    } @else if $point == large {
+        @media screen and (min-width: 64em) {
+            @content;
+        }
+    } @else if $point == exlarge {
+        @media screen and (min-width: 100em) {
+            @content;
+        }
+    } @else if $point == not-small {
+        @media screen and (min-width: 48em) {
+            @content;
+        }
+    } @else if $point == large {
+        @media screen and (min-width: 64em) {
+            @content;
+        }
+    } @else if $point == not-large {
+        @media screen and (max-width: 64em) {
+            @content;
+        }
+    }
+}

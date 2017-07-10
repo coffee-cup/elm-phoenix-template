@@ -3,9 +3,7 @@
     "summary": "helpful summary of your project, less than 80 characters",
     "repository": "https://github.com/user/project.git",
     "license": "BSD3",
-    "source-directories": [
-        "."
-    ],
+    "source-directories": ["web/elm"],
     "exposed-modules": [],
     "dependencies": {
         "Bogdanp/elm-route": "4.0.0 <= v < 5.0.0",
