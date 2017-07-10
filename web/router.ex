@@ -13,14 +13,15 @@ defmodule ElmPhoenix.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/api", ElmPhoenix do
+    pipe_through :api
+
+    get "/", ApiController, :index
+  end
+
   scope "/", ElmPhoenix do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/*path", ElmController, :index
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", ElmPhoenix do
-  #   pipe_through :api
-  # end
 end
