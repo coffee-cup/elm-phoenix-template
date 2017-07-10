@@ -5,6 +5,7 @@ import Routing exposing (Sitemap)
 
 type alias Model =
     { counter : Int
+    , text : String
     , route : Sitemap
     }
 
@@ -12,5 +13,6 @@ type alias Model =
 initialModel : Sitemap -> Model
 initialModel sitemap =
     { counter = 0
+    , text = ""
     , route = sitemap
     }

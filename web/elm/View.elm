@@ -36,11 +36,11 @@ page model =
 
 header : Model -> Html Msg
 header model =
-    div [ class "header bold full vertical-center" ]
+    div [ class "header bold" ]
         [ div []
-            [ h1 [ class "f-headline-ns f-subheadline mv0" ] [ text "Hello." ]
+            [ headingLarge "Hello."
             , counter model.counter
-            , paragraph
+            , paragraph model
             ]
         ]
 
@@ -54,11 +54,11 @@ counter counter =
         ]
 
 
-paragraph : Html Msg
-paragraph =
+paragraph : Model -> Html Msg
+paragraph model =
     div []
         [ p [ class "measure" ]
-            [ text "It is tiem to go home. not least, we need to move our static assets so that they’re accessible. By default, Phoenix stores static assets in web/static/assets and moves them to priv/static, so web/static/assets/favicon.ico will be moved to priv/static/favicon.ico." ]
+            [ text model.text ]
         ]
 
 
@@ -66,7 +66,10 @@ footer : Html Msg
 footer =
     div [ class "footer pb4" ]
         [ p [ class "f5" ]
-            [ a [ onClick ShowHome, class "dim none pointer" ] [ text "♥" ]
+            [ a [ onClick ShowHome, class "dim none pointer" ]
+                [ heart
+                , text " from jake."
+                ]
             ]
         ]
 

@@ -26,6 +26,12 @@ update msg model =
             in
                 ( { model | route = newRoute }, Cmd.none )
 
+        OnFetchText (Ok newText) ->
+            ( { model | text = newText }, Cmd.none )
+
+        OnFetchText (Err _) ->
+            ( model, Cmd.none )
+
         ShowHome ->
             ( model, changePage HomeRoute )
 
