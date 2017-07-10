@@ -1,5 +1,7 @@
 const WebpackNotifierPlugin = require('webpack-notifier');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
 const webpack = require('webpack');
 const path = require('path');
 
@@ -90,6 +92,7 @@ const config = {
 
   plugins: [
     new ExtractTextPlugin('app.css'),
+    new CopyWebpackPlugin([{ from: './web/static/assets' }]),
     new webpack.LoaderOptionsPlugin({
       options: {
         noParse: [/\.elm$/]
