@@ -9,7 +9,7 @@ console.log(
 );
 
 const elmLoader = {
-  loader: `elm-webpack-loader?cwd=${path.join(__dirname, '/web/elm')}`,
+  loader: 'elm-webpack-loader',
   options: {
     verbose: true,
     warn: true,
@@ -21,8 +21,13 @@ const config = {
   entry: ['./web/static/js/app.js', './web/static/scss/app.scss'],
 
   output: {
-    path: path.join(__dirname, '/priv/static/js'),
+    path: path.join(__dirname, '/priv/static'),
     filename: 'app.js'
+  },
+
+  watch: !isProd,
+  watchOptions: {
+    ignored: /node_modules/
   },
 
   module: {
@@ -48,7 +53,7 @@ const config = {
       {
         test: /\.elm$/,
         exclude: [/elm-stuff/, /node_modules/],
-        loader: elmLoader
+        loaders: ['elm-hot-loader', elmLoader]
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -84,7 +89,7 @@ const config = {
   },
 
   plugins: [
-    new ExtractTextPlugin('../css/app.css'),
+    new ExtractTextPlugin('app.css'),
     new webpack.LoaderOptionsPlugin({
       options: {
         noParse: [/\.elm$/]

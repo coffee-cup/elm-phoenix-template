@@ -40,6 +40,7 @@ header model =
         [ div []
             [ h1 [ class "f-headline-ns f-subheadline mv0" ] [ text "Hello." ]
             , counter model.counter
+            , paragraph
             ]
         ]
 
@@ -50,6 +51,14 @@ counter counter =
         [ span [ onClick (Decrease 1), class "pointer" ] [ text "-" ]
         , span [ class "ph4" ] [ text (toString counter) ]
         , span [ onClick (Increase 1), class "pointer" ] [ text "+" ]
+        ]
+
+
+paragraph : Html Msg
+paragraph =
+    div []
+        [ p [ class "measure" ]
+            [ text "It is tiem to go home. not least, we need to move our static assets so that they’re accessible. By default, Phoenix stores static assets in web/static/assets and moves them to priv/static, so web/static/assets/favicon.ico will be moved to priv/static/favicon.ico." ]
         ]
 
 
