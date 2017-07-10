@@ -7,12 +7,13 @@ import Messages exposing (Msg(..))
 import Models exposing (Model)
 import Routing exposing (Sitemap(..))
 import ViewUtils exposing (..)
+import Chat.View
 
 
 view : Model -> Html Msg
 view model =
     div [ class "ph6-ns ph4-m ph3" ]
-        [ div [ class "full" ] [ page model ]
+        [ div [] [ page model ]
         , footer
         ]
 
@@ -80,8 +81,9 @@ footer =
 
 homeView : Model -> Html Msg
 homeView model =
-    div []
+    div [ class "flex sb col full" ]
         [ header model
+        , Chat.View.view model
         ]
 
 

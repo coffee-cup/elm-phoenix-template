@@ -6,6 +6,8 @@
 // @import 'iconfont';
 @import 'mixins';
 @import 'utils';
+@import 'forms';
+@import 'components/components';
 
 // :)
 * {
@@ -22,9 +24,9 @@
 
 html,
 body {
-  width: 100vw;
   margin: 0;
   padding: 0;
+  width: 100vw;
 }
 
 body {
@@ -44,13 +46,13 @@ p {
 }
 
 a,
-a:visited,
-button {
-  cursor: pointer;
-  transition: .250s ease-in-out;
+a:visited {
+  color: $text-dark;
+
   text-decoration: none;
 
-  color: $text-dark;
+  cursor: pointer;
+  transition: .250s ease-in-out;
 
   @include smart-underline($background-colour, $text-dark, $selection);
   &:hover {
@@ -59,14 +61,23 @@ button {
 }
 
 a.none {
-  text-decoration: none;
-
   background: none;
   text-shadow: none;
+
+  text-decoration: none;
 }
 
 ul.none {
   padding-left: 0;
 
   list-style-type: none;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+
+  min-height: 100vh;
+
+  justify-content: space-between;
 }

@@ -1,0 +1,14 @@
+.chat {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 2rem;
+
+  flex-grow: 1;
+  &-content {
+    flex-grow: 1;
+  }
+  &-input {
+    width: 100%;
+  }
+}

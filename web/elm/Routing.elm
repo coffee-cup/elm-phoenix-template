@@ -22,7 +22,7 @@ aboutR =
 
 sitemap : Route.Router Sitemap
 sitemap =
-    router [ homeR ]
+    router [ homeR, aboutR ]
 
 
 removeTrailingSlash : String -> String

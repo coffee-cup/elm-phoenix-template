@@ -32,6 +32,12 @@ update msg model =
         OnFetchText (Err _) ->
             ( model, Cmd.none )
 
+        SetNewMessage string ->
+            ( { model | newMessage = string }, Cmd.none )
+
+        JoinChannel ->
+            ( model, Cmd.none )
+
         ShowHome ->
             ( model, changePage HomeRoute )
 
