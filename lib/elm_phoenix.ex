@@ -12,6 +12,7 @@ defmodule ElmPhoenix do
       supervisor(ElmPhoenix.Repo, []),
       # Start the endpoint when the application starts
       supervisor(ElmPhoenix.Endpoint, []),
+      supervisor(ElmPhoenix.Presence, [])
       # Start your own worker by calling: ElmPhoenix.Worker.start_link(arg1, arg2, arg3)
       # worker(ElmPhoenix.Worker, [arg1, arg2, arg3]),
     ]

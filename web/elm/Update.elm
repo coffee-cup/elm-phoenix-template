@@ -1,7 +1,13 @@
 port module Update exposing (..)
 
+import Phoenix.Socket
+import Phoenix.Channel
+import Phoenix.Push
+import Json.Encode as JE
+import Json.Decode as JD exposing (..)
+import Json.Decode.Extra as JD exposing (..)
 import Messages exposing (Msg(..))
-import Models exposing (Model)
+import Models exposing (Model, ChatMessage)
 import Routing exposing (parseLocation, navigateTo, Sitemap(..))
 
 
@@ -35,8 +41,55 @@ update msg model =
         SetNewMessage string ->
             ( { model | newMessage = string }, Cmd.none )
 
+        SendMessage ->
+            let
+                payload =
+                    (JE.object [ ( "body", JE.string model.newMessage ) ])
+
+                pushMsg =
+                    Phoenix.Push.init "new:msg" "room:lobby"
+                        |> Phoenix.Push.withPayload payload
+
+                ( phxSocket, phxCmd ) =
+                    Phoenix.Socket.push pushMsg model.phxSocket
+            in
+                ( { model
+                    | newMessage = ""
+                    , phxSocket = phxSocket
+                  }
+                , Cmd.map PhoenixMsg phxCmd
+                )
+
+        ReceiveChatMessage raw ->
+            case JD.decodeValue chatMessageDecoder raw of
+                Ok chatMessage ->
+                    ( { model | messages = chatMessage :: model.messages }
+                    , Cmd.none
+                    )
+
+                Err error ->
+                    ( model, Cmd.none )
+
         JoinChannel ->
-            ( model, Cmd.none )
+            let
+                channel =
+                    Phoenix.Channel.init "room:lobby"
+
+                ( phxSocket, phxCmd ) =
+                    Phoenix.Socket.join channel model.phxSocket
+            in
+                ( { model | phxSocket = phxSocket }
+                , Cmd.map PhoenixMsg phxCmd
+                )
+
+        PhoenixMsg msg ->
+            let
+                ( phxSocket, phxCmd ) =
+                    Phoenix.Socket.update msg model.phxSocket
+            in
+                ( { model | phxSocket = phxSocket }
+                , Cmd.map PhoenixMsg phxCmd
+                )
 
         ShowHome ->
             ( model, changePage HomeRoute )
@@ -49,3 +102,14 @@ update msg model =
 
         Decrease amount ->
             ( { model | counter = model.counter - amount }, Cmd.none )
+
+
+chatMessageDecoder : JD.Decoder ChatMessage
+chatMessageDecoder =
+    succeed ChatMessage
+        |: (oneOf
+                [ (field "user" string)
+                , succeed "anon"
+                ]
+           )
+        |: (field "body" string)

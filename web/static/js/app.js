@@ -18,7 +18,7 @@ import 'phoenix_html';
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
 
-import socket from './socket';
+// import socket from './socket';
 
 // Elm
 
@@ -26,4 +26,4 @@ const Elm = require('../../elm/Main.elm');
 
 const elmDiv = document.getElementById('elm-main');
 
-const elmApp = Elm.Main.embed(elmDiv);
+Elm.Main.embed(elmDiv);

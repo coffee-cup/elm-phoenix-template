@@ -65,7 +65,7 @@ paragraph model =
 
 footer : Html Msg
 footer =
-    div [ class "footer pb4" ]
+    div [ class "footer pv4" ]
         [ p [ class "f5" ]
             [ a [ onClick ShowHome, class "dim none pointer" ]
                 [ heart
