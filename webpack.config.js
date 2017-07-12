@@ -20,7 +20,7 @@ const elmLoader = {
 };
 
 const config = {
-  entry: ['./web/static/js/app.js', './web/static/scss/app.scss'],
+  entry: ['./web/static/js/app.js'],
 
   output: {
     path: path.join(__dirname, '/priv/static'),
@@ -49,7 +49,16 @@ const config = {
         test: /\.(css|scss)$/,
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', 'postcss-loader', 'sass-loader']
+          use: [
+            'css-loader',
+            {
+              loader: 'postcss-loader',
+              options: {
+                config: { path: './postcss.config.js' }
+              }
+            },
+            'sass-loader'
+          ]
         })
       },
       {

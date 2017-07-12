@@ -3,15 +3,11 @@ port module Update exposing (..)
 import Phoenix.Socket
 import Phoenix.Channel
 import Phoenix.Push
-import Json.Encode as JE
-import Json.Decode as JD exposing (..)
-import Json.Decode.Extra as JD exposing (..)
 import Messages exposing (Msg(..))
 import Models exposing (Model)
 import Routing exposing (parseLocation, navigateTo, Sitemap(..))
 import Chat.Messages
 import Chat.Update
-import Chat.Models
 
 
 port pageView : String -> Cmd msg

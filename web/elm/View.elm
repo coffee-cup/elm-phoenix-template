@@ -8,7 +8,6 @@ import Models exposing (Model)
 import Routing exposing (Sitemap(..))
 import ViewUtils exposing (..)
 import Chat.View
-import Chat.Messages
 
 
 view : Model -> Html Msg
