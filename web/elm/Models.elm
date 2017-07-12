@@ -2,43 +2,27 @@ module Models exposing (..)
 
 import Routing exposing (Sitemap)
 import Phoenix.Socket exposing (Socket)
+import Sockets exposing (initPhxSocket)
 import Messages exposing (Msg(..))
-
-
-type alias ChatMessage =
-    { user : String
-    , body : String
-    }
+import Chat.Models
 
 
 type alias Model =
     { counter : Int
     , text : String
-    , newMessage : String
-    , messages : List ChatMessage
-    , phxSocket : Socket Msg
+    , username : String
+    , chatModel : Chat.Models.Model
+    , phxSocket : Phoenix.Socket.Socket Msg
     , route : Sitemap
     }
-
-
-socketServer : String
-socketServer =
-    "ws://localhost:4000/socket/websocket"
-
-
-initPhxSocket : Socket Msg
-initPhxSocket =
-    Phoenix.Socket.init socketServer
-        |> Phoenix.Socket.withDebug
-        |> Phoenix.Socket.on "new:msg" "room:lobby" ReceiveChatMessage
 
 
 initialModel : Sitemap -> Model
 initialModel sitemap =
     { counter = 0
     , text = ""
-    , newMessage = ""
-    , messages = []
+    , username = ""
+    , chatModel = Chat.Models.initialModel
     , phxSocket = initPhxSocket
     , route = sitemap
     }

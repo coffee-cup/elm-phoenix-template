@@ -3,37 +3,35 @@ module Chat.View exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (value, placeholder, class)
 import Html.Events exposing (onInput, onClick, onSubmit)
-import Models exposing (Model, ChatMessage)
-import Messages exposing (Msg(..))
+import Types exposing (Message)
+import Chat.Models exposing (Model)
+import Chat.Messages exposing (Msg(..))
 
 
 view : Model -> Html Msg
 view model =
-    div [ class "chat pv2" ]
-        [ div [ class "chat-content" ]
-            [ button [ onClick JoinChannel ] [ text "Join Lobby" ]
-            , viewListMessages model.messages
-            ]
-        , inputForm model.newMessage
+    div [ class "chat pv4 sb" ]
+        [ viewListMessages model.messages
+        , viewMessageInput model.newMessage
         ]
 
 
-viewListMessages : List ChatMessage -> Html Msg
+viewListMessages : List Message -> Html Msg
 viewListMessages messages =
     div [ class "messages pv2" ]
         (List.map viewMessage (List.reverse messages))
 
 
-viewMessage : ChatMessage -> Html Msg
+viewMessage : Message -> Html Msg
 viewMessage message =
     div [ class "message" ]
-        [ span [ class "user" ] [ text (message.user ++ ": ") ]
+        [ span [ class "user text-secondary pr2" ] [ text (message.user) ]
         , span [ class "body" ] [ text message.body ]
         ]
 
 
-inputForm : String -> Html Msg
-inputForm newMessage =
+viewMessageInput : String -> Html Msg
+viewMessageInput newMessage =
     div [ class "chat-input" ]
         [ form [ onSubmit SendMessage ]
             [ input

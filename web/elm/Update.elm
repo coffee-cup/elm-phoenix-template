@@ -7,8 +7,11 @@ import Json.Encode as JE
 import Json.Decode as JD exposing (..)
 import Json.Decode.Extra as JD exposing (..)
 import Messages exposing (Msg(..))
-import Models exposing (Model, ChatMessage)
+import Models exposing (Model)
 import Routing exposing (parseLocation, navigateTo, Sitemap(..))
+import Chat.Messages
+import Chat.Update
+import Chat.Models
 
 
 port pageView : String -> Cmd msg
@@ -38,37 +41,21 @@ update msg model =
         OnFetchText (Err _) ->
             ( model, Cmd.none )
 
-        SetNewMessage string ->
-            ( { model | newMessage = string }, Cmd.none )
-
-        SendMessage ->
+        ReceiveChatMessage chatMessage ->
             let
-                payload =
-                    (JE.object [ ( "body", JE.string model.newMessage ) ])
+                ( newChatModel, chatCmd, outMsg ) =
+                    Chat.Update.update (Chat.Messages.ReceiveMessage chatMessage) model.chatModel
 
-                pushMsg =
-                    Phoenix.Push.init "new:msg" "room:lobby"
-                        |> Phoenix.Push.withPayload payload
+                newModel =
+                    { model | chatModel = newChatModel }
 
-                ( phxSocket, phxCmd ) =
-                    Phoenix.Socket.push pushMsg model.phxSocket
+                newCmd =
+                    Cmd.map ChatMsg chatCmd
+
+                ( newModel_, newCmd_ ) =
+                    handleChatOutMsg outMsg ( newModel, newCmd )
             in
-                ( { model
-                    | newMessage = ""
-                    , phxSocket = phxSocket
-                  }
-                , Cmd.map PhoenixMsg phxCmd
-                )
-
-        ReceiveChatMessage raw ->
-            case JD.decodeValue chatMessageDecoder raw of
-                Ok chatMessage ->
-                    ( { model | messages = chatMessage :: model.messages }
-                    , Cmd.none
-                    )
-
-                Err error ->
-                    ( model, Cmd.none )
+                ( newModel_, newCmd_ )
 
         JoinChannel ->
             let
@@ -81,6 +68,22 @@ update msg model =
                 ( { model | phxSocket = phxSocket }
                 , Cmd.map PhoenixMsg phxCmd
                 )
+
+        ChatMsg chatMsg ->
+            let
+                ( newChatModel, chatCmd, outMsg ) =
+                    Chat.Update.update chatMsg model.chatModel
+
+                newModel =
+                    { model | chatModel = newChatModel }
+
+                newCmd =
+                    Cmd.map ChatMsg chatCmd
+
+                ( newModel_, newCmd_ ) =
+                    handleChatOutMsg outMsg ( newModel, newCmd )
+            in
+                ( newModel_, newCmd_ )
 
         PhoenixMsg msg ->
             let
@@ -104,12 +107,29 @@ update msg model =
             ( { model | counter = model.counter - amount }, Cmd.none )
 
 
-chatMessageDecoder : JD.Decoder ChatMessage
-chatMessageDecoder =
-    succeed ChatMessage
-        |: (oneOf
-                [ (field "user" string)
-                , succeed "anon"
-                ]
-           )
-        |: (field "body" string)
+handleChatOutMsg : Maybe Chat.Messages.OutMsg -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
+handleChatOutMsg maybeOutMsg ( model, cmd ) =
+    case maybeOutMsg of
+        Nothing ->
+            ( model, cmd )
+
+        Just outMsg ->
+            case outMsg of
+                Chat.Messages.Say message ->
+                    let
+                        payload =
+                            Chat.Update.encodeMessage message
+
+                        push_ =
+                            Phoenix.Push.init "new:msg" "room:lobby"
+                                |> Phoenix.Push.withPayload payload
+
+                        ( phxSocket, phxCmd ) =
+                            Phoenix.Socket.push push_ model.phxSocket
+                    in
+                        ( { model | phxSocket = phxSocket }
+                        , Cmd.batch
+                            [ cmd
+                            , Cmd.map PhoenixMsg phxCmd
+                            ]
+                        )

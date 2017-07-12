@@ -1,5 +1,6 @@
 module Main exposing (..)
 
+import Task
 import Navigation exposing (Location)
 import Models exposing (Model, initialModel)
 import Messages exposing (Msg(..))
@@ -20,7 +21,10 @@ init location =
             Routing.parseLocation location
     in
         ( initialModel currentRoute
-        , getText
+        , Cmd.batch
+            [ getText
+            , Task.succeed JoinChannel |> Task.perform identity
+            ]
         )
 
 

@@ -8,6 +8,7 @@ import Models exposing (Model)
 import Routing exposing (Sitemap(..))
 import ViewUtils exposing (..)
 import Chat.View
+import Chat.Messages
 
 
 view : Model -> Html Msg
@@ -83,7 +84,7 @@ homeView : Model -> Html Msg
 homeView model =
     div [ class "flex sb col full" ]
         [ header model
-        , Chat.View.view model
+        , Html.map ChatMsg (Chat.View.view model.chatModel)
         ]
 
 

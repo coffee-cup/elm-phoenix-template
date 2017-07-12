@@ -7,7 +7,7 @@
 }
 
 .dark-header {
-  color: $main-colour;
+  color: $primary-colour;
 }
 
 .light-header {
@@ -22,8 +22,8 @@
   color: $text-light;
 }
 
-.text-main {
-  color: $main-colour;
+.text-primary {
+  color: $primary-colour;
 }
 
 .text-secondary {
@@ -53,7 +53,7 @@
 .hover-main {
   transition: $s-animation;
   &:hover {
-    color: $main-colour;
+    color: $primary-colour;
   }
 }
 
@@ -80,12 +80,12 @@
 .su-colour {
   text-decoration: none;
 
-  @include smart-underline($background-colour, $main-colour, $selection);
+  @include smart-underline($background-colour, $primary-colour, $selection);
 }
 
 .st {
   text-decoration: line-through;
-  color: $main-colour;
+  color: $primary-colour;
 
   > * {
     color: $text-dark;
@@ -218,7 +218,7 @@
 // Background
 
 .bg-main {
-  background-color: $main-colour;
+  background-color: $primary-colour;
 }
 
 .bg-secondary {
