@@ -5,7 +5,7 @@
 // import 'phoenix_html';
 
 // Import styles
-import 'tachyons/css/tachyons.css';
+// import 'tachyons/css/tachyons.css';
 import '../scss/app.scss';
 
 // import socket from './socket';
