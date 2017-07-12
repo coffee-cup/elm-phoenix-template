@@ -5,7 +5,7 @@ defmodule ElmPhoenix.RoomChannel do
   require Logger
 
   def join("room:lobby", msg, socket) do
-    send self, {:after_join, msg}
+    send self(), {:after_join, msg}
     {:ok, socket}
   end
 
@@ -14,7 +14,7 @@ defmodule ElmPhoenix.RoomChannel do
     {:reply, {:ok, %{msg: msg["body"]}}, socket}
   end
 
-  def handle_info({:after_join, msg}, socket) do
+  def handle_info({:after_join, _msg}, socket) do
     Presence.track(socket, socket.assigns[:user], %{
       device: "browser",
       online_at: inspect(:os.timestamp())

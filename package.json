@@ -2,7 +2,8 @@
   "repository": {},
   "license": "MIT",
   "scripts": {
-    "watch": "webpack --watch --progress --color"
+    "watch": "webpack --watch --progress --color",
+    "build": "MIX_ENV=production webpack -p --progress"
   },
   "dependencies": {
     "phoenix": "file:deps/phoenix",

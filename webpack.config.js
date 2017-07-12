@@ -5,7 +5,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 const path = require('path');
 
-const isProd = process.env.NODE_ENV === 'production';
+const isProd = process.env.MIX_ENV === 'production';
 console.log(
   isProd ? 'Building for Production ⚡️' : 'Building for Development 💃'
 );
