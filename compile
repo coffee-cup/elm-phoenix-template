@@ -1,6 +1,12 @@
+ls
+
+npm run build
+
 cd $phoenix_dir
 
 echo $phoenix_dir
+
+ls
 
 npm run build
 
