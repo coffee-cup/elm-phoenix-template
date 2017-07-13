@@ -12,6 +12,9 @@ import '../scss/app.scss';
 
 // Elm
 
+import randomColour from 'randomcolor';
+console.log(randomColour());
+
 const Elm = require('../../elm/Main.elm');
 
 const elmDiv = document.getElementById('elm-main');
