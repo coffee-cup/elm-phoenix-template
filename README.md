@@ -21,7 +21,7 @@ This is a simple webserver using [Elixir Phoenix](http://www.phoenixframework.or
 ## Development ✨
 
 1. Clone repo
-1. `mix.deps.get`
+1. `mix deps.get`
 1. `mix ecto.create && mix ecto.migrate`
 1. `yarn install`
 1. `mix phoenix.server`
