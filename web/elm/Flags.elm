@@ -2,5 +2,6 @@ module Flags exposing (Flags)
 
 
 type alias Flags =
-    { websocketUrl : String
+    { prod : Bool
+    , websocketUrl : String
     }

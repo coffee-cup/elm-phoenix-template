@@ -24,6 +24,6 @@ initialModel flags sitemap =
     , text = ""
     , username = ""
     , chatModel = Chat.Models.initialModel
-    , phxSocket = initPhxSocket flags.websocketUrl
+    , phxSocket = initPhxSocket flags
     , route = sitemap
     }
