@@ -6,6 +6,7 @@ This is a simple webserver using [Elixir Phoenix](http://www.phoenixframework.or
 
 - [Phoenix](http://www.phoenixframework.org/)
 - [Elm](http://elm-lang.org/)
+- [Elm Phoenix Socket](https://github.com/fbonetti/elm-phoenix-socket)
 - [ES6](https://github.com/lukehoban/es6features)
 - [ESLint](http://eslint.org/)
 - [Prettier](https://github.com/prettier/prettier)
