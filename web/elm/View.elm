@@ -41,7 +41,7 @@ header model =
         [ div []
             [ headingLarge "Hello."
             , counter model.counter
-            , paragraph model
+            , apiText model
             ]
         ]
 
@@ -55,11 +55,13 @@ counter counter =
         ]
 
 
-paragraph : Model -> Html Msg
-paragraph model =
+apiText : Model -> Html Msg
+apiText model =
     div []
         [ p [ class "measure" ]
-            [ text model.text ]
+            [ span [ class "text-secondary pr2" ] [ text "from api" ]
+            , span [] [ text model.text ]
+            ]
         ]
 
 
