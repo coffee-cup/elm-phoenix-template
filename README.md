@@ -1,20 +1,56 @@
-# ElmPhoenix
+# elm-phoenix-template
 
-To start your Phoenix app:
+This is a simple webserver using [Elixir Phoenix](http://www.phoenixframework.org/) and [Elm](http://elm-lang.org). [Here is an example of the result](https://elm-phoenix-template.herokuapp.com/).
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  * Install Node.js dependencies with `npm install`
-  * Start Phoenix endpoint with `mix phoenix.server`
+## Features 💥
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+- [Phoenix](http://www.phoenixframework.org/)
+- [Elm](http://elm-lang.org/)
+- [ES6](https://github.com/lukehoban/es6features)
+- [ESLint](http://eslint.org/)
+- [Prettier](https://github.com/prettier/prettier)
+- [Webpack](https://webpack.github.io/)
+- [PostCSS](https://github.com/postcss/postcss)
+- [SCSS](http://sass-lang.com/)
+- [Tachyons](http://tachyons.io/)
+- Live reloading
+- Elm environment flags
+- Ready to deploy to [Heroku](https://dashboard.heroku.com/)
 
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
+## Development ✨
 
-## Learn more
+1. Clone repo
+1. `mix.deps.get`
+1. `mix ecto.create && mix ecto.migrate`
+1. `yarn install`
+1. `mix phoenix.server`
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+Visit [`localhost:4000`](http://localhost:4000) in your browser.
+
+### Build
+
+The frontend is build with [Webpack](https://webpack.js.org/). This is taken care of for you when starting phoenix.
+
+Phoenix uses the PostgreSQL database. I recommend using the [docker container](https://hub.docker.com/_/postgres/).
+
+## Source 👼
+
+- Elixir in `lib/` and `web/`
+- Elm in `web/elm`
+- SCSS in `web/static/scss`
+- Public files in `web/static/assets`
+- Fonts in `web/static/fonts`
+
+## Deployment 🚀
+
+This template is setup to deploy to Heroku.
+
+```
+heroku create
+heroku config:set SECRET_KEY_BASE=$(mix phoenix.gen.secret)
+heroku config:set WEBSOCKET_URL="wss://YOUR-HEROKU-APP.herokuapp.com/socket/websocket"
+heroku addons:create heroku-postgresql:hobby-dev
+heroku buildpacks:set https://github.com/gjaldon/phoenix-static-buildpack
+heroku buildpacks:add --index 1 https://github.com/HashNuke/heroku-buildpack-elixir
+
+```
