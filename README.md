@@ -30,9 +30,9 @@ Visit [`localhost:4000`](http://localhost:4000) in your browser.
 
 ### Build
 
-The frontend is build with [Webpack](https://webpack.js.org/). This is taken care of for you when starting phoenix.
+The frontend is built with [Webpack](https://webpack.js.org/). This is taken care of for you when starting phoenix.
 
-Phoenix uses the PostgreSQL database. I recommend using the [docker container](https://hub.docker.com/_/postgres/).
+Phoenix uses the PostgreSQL database. I recommend using the [docker container](https://hub.docker.com/_/postgres/). It must be running before you run the command `mix ecto.create`.
 
 ## Source 👼
 
