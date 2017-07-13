@@ -24,6 +24,7 @@ This is a simple webserver using [Elixir Phoenix](http://www.phoenixframework.or
 1. `mix deps.get`
 1. `mix ecto.create && mix ecto.migrate`
 1. `yarn install`
+1. `cp env.example .env`
 1. `mix phoenix.server`
 
 Visit [`localhost:4000`](http://localhost:4000) in your browser.
