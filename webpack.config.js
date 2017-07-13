@@ -7,7 +7,7 @@ const path = require('path');
 
 require('dotenv').config();
 
-const isProd = process.env.MIX_ENV === 'production';
+const isProd = process.env.NODE_ENV === 'production';
 console.log(
   isProd ? 'Building for Production ⚡️' : 'Building for Development 💃'
 );

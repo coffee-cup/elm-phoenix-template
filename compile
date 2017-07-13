@@ -1,6 +1,6 @@
 cd $phoenix_dir
 
-npm run build
+NODE_ENV=production ./node_modules/webpack/bin/webpack.js -p -d
 
 mix "${phoenix_ex}.digest"
 
