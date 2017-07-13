@@ -12,11 +12,14 @@ import '../scss/app.scss';
 
 // Elm
 
-import randomColour from 'randomcolor';
+const randomColour = require('randomcolor');
+// import randomColour from 'randomcolor';
 console.log(randomColour());
 
 const Elm = require('../../elm/Main.elm');
 
 const elmDiv = document.getElementById('elm-main');
 
-Elm.Main.embed(elmDiv);
+Elm.Main.embed(elmDiv, {
+  websocketUrl: process.env.WEBSOCKET_URL
+});
