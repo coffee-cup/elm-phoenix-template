@@ -2,6 +2,7 @@ module Models exposing (..)
 
 import Routing exposing (Sitemap)
 import Phoenix.Socket exposing (Socket)
+import Flags exposing (Flags)
 import Sockets exposing (initPhxSocket)
 import Messages exposing (Msg(..))
 import Chat.Models
@@ -17,12 +18,12 @@ type alias Model =
     }
 
 
-initialModel : Sitemap -> Model
-initialModel sitemap =
+initialModel : Flags -> Sitemap -> Model
+initialModel flags sitemap =
     { counter = 0
     , text = ""
     , username = ""
     , chatModel = Chat.Models.initialModel
-    , phxSocket = initPhxSocket
+    , phxSocket = initPhxSocket flags.websocketUrl
     , route = sitemap
     }

@@ -2,6 +2,7 @@ module Main exposing (..)
 
 import Task
 import Navigation exposing (Location)
+import Flags exposing (Flags)
 import Models exposing (Model, initialModel)
 import Messages exposing (Msg(..))
 import Subscriptions exposing (subscriptions)
@@ -14,13 +15,13 @@ import Routing
 -- Init
 
 
-init : Location -> ( Model, Cmd Msg )
-init location =
+init : Flags -> Location -> ( Model, Cmd Msg )
+init flags location =
     let
         currentRoute =
             Routing.parseLocation location
     in
-        ( initialModel currentRoute
+        ( initialModel flags currentRoute
         , Cmd.batch
             [ getText
             , Task.succeed JoinChannel |> Task.perform identity
@@ -32,9 +33,9 @@ init location =
 -- Main
 
 
-main : Program Never Model Msg
+main : Program Flags Model Msg
 main =
-    Navigation.program OnLocationChange
+    Navigation.programWithFlags OnLocationChange
         { init = init
         , view = view
         , update = update
