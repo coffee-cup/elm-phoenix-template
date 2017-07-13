@@ -83,7 +83,7 @@ footer =
 
 homeView : Model -> Html Msg
 homeView model =
-    div [ class "flex sb col full" ]
+    div [ class "home flex sb col full" ]
         [ header model
         , Html.map ChatMsg (Chat.View.view model.chatModel)
         ]
@@ -91,10 +91,12 @@ homeView model =
 
 aboutView : Model -> Html Msg
 aboutView model =
-    div [ class "about" ]
-        [ headingLarge "About"
-        , p [ class "measure" ] [ text "About this site." ]
-        , a [ onClick ShowHome, class "f1 none dim" ] [ text "←" ]
+    div [ class "about flex sb col full" ]
+        [ div []
+            [ headingLarge "About"
+            , p [ class "measure" ] [ text "About this site." ]
+            , a [ onClick ShowHome, class "f1 none dim" ] [ text "←" ]
+            ]
         ]
 
 
