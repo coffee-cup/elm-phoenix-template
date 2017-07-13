@@ -28,6 +28,8 @@ This is a simple webserver using [Elixir Phoenix](http://www.phoenixframework.or
 
 Visit [`localhost:4000`](http://localhost:4000) in your browser.
 
+Test with `mix test`.
+
 ### Build
 
 The frontend is built with [Webpack](https://webpack.js.org/). This is taken care of for you when starting phoenix.
