@@ -1,7 +1,6 @@
+NODE_ENV=production MIX_ENV=production ./node_modules/webpack/bin/webpack.js -p
+
 cd $phoenix_dir
-
-NODE_ENV=production ./node_modules/webpack/bin/webpack.js -p -d
-
 mix "${phoenix_ex}.digest"
 
 if mix help "${phoenix_ex}.digest.clean" 1>/dev/null 2>&1; then
