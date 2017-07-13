@@ -1,4 +1,4 @@
-NODE_ENV=production MIX_ENV=production ./node_modules/webpack/bin/webpack.js -p
+NODE_ENV=production MIX_ENV=prod ./node_modules/webpack/bin/webpack.js -p
 
 cd $phoenix_dir
 mix "${phoenix_ex}.digest"
