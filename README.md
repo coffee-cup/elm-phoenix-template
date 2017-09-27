@@ -56,5 +56,5 @@ heroku config:set WEBSOCKET_URL="wss://YOUR-HEROKU-APP.herokuapp.com/socket/webs
 heroku addons:create heroku-postgresql:hobby-dev
 heroku buildpacks:set https://github.com/gjaldon/phoenix-static-buildpack
 heroku buildpacks:add --index 1 https://github.com/HashNuke/heroku-buildpack-elixir
-
+heroku run "POOL_SIZE=2 mix ecto.migrate"
 ```
